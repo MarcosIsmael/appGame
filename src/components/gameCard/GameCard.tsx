@@ -32,7 +32,7 @@ export default function GameCard({image, title, description,get,freeToGame, id}:
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">detail</Button>
+        <Button component='a' target='_blank' href={`/detail/${id}`}size="small">detail</Button>
         <Button component='a' target='_blank' href={get} size="small">get</Button>
         <Button component='a' target='_blank' href={freeToGame} size="small">Free to game</Button>
 

@@ -9,7 +9,9 @@ const Home = () => {
     const status = useAppSelector((state)=>state.counter.status)
     const listGames = useAppSelector((state)=> state.counter.listGames)
     useEffect(()=>{
-        dispatch(getAllGames())
+        if(listGames.length ===0){
+            dispatch(getAllGames())
+        }
     },[])
     return (
         <div>

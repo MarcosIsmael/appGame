@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import gameSlice from '../features/counter/gameSlice';
 import authSlice from '../features/counter/authSlice';
+import gameDetail from '../features/counter/gameDetailSlice';
 
 export const store = configureStore({
   reducer: {
     counter: gameSlice,
-    auth: authSlice
+    auth: authSlice,
+    gameDetail: gameDetail
   },
 });
 

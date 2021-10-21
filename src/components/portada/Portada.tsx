@@ -13,7 +13,7 @@ const Portada = () => {
         containerPortada: {
             backgroundImage:`url("${img}")`,
             backgroundRepeat:'no-repeat',
-            backgroundSize:'cover',
+            backgroundSize:'contain',
             marginBottom:10
         },
     })
@@ -28,10 +28,10 @@ const Portada = () => {
     return (
         <Paper elevation={2} className={classes.containerPortada}  square>
             <Grid container direction='column' spacing={10}>
-                <Grid item xs/>
-                <Grid item xs/>
-                <Grid item xs/>
-                <Grid item xs/>
+                <Grid item sm/>
+                <Grid item sm/>
+                <Grid item sm/>
+                <Grid item sm/>
 
                 <Grid item xs={12}>
                     <Box bgcolor='#000000' height={40} display='flex' alignItems='center'>  
