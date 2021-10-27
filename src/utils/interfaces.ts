@@ -73,3 +73,5 @@ export interface Screenshot {
     id:    number;
     image: string;
 }
+
+export type TipoFiltro = 'Plataforma'| 'Categoria' | 'Ordenar'

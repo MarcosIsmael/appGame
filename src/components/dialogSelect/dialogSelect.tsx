@@ -10,19 +10,26 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-
-type State = number | string
-
+import { TipoFiltro } from '../../utils/interfaces'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { setFilters } from '../../features/counter/gameSlice';
+type State =  string
 interface Props {
-    title : string,
+    title : TipoFiltro,
     titleDialog :string,
+    optionsSelect:string[],
+    handleClick:(data:string, tipo:TipoFiltro)=>void
 }
 export default function DialogSelect(props: Props) {
   const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState<State>('');
+  const filtros = useAppSelector((state)=> state.counter.filters)[props.title]
+  const [age, setAge] = React.useState<State>(filtros);
+  const dispatch = useAppDispatch()
 
-  const handleChange = (event: SelectChangeEvent<string | number>) => {
-    setAge(Number(event.target.value) || '');
+
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    dispatch(setFilters({type:props.title, value:event.target.value}))
+
   };
 
   const handleClickOpen = () => {
@@ -30,8 +37,15 @@ export default function DialogSelect(props: Props) {
   };
 
   const handleClose = (event :  object, reason:string) => {
+    if(reason === 'filtrar' && filtros){
+      props.handleClick(filtros, props.title)
+    }
     if (reason !== 'backdropClick') {
       setOpen(false);
+    }
+    if(reason === 'cancelar'){
+      dispatch(setFilters({type:props.title, value:''}))
+
     }
   };
 
@@ -46,16 +60,22 @@ export default function DialogSelect(props: Props) {
               <InputLabel htmlFor="demo-dialog-native">Age</InputLabel>
               <Select
                 native
-                value={age}
+                value={filtros}
                 onChange={handleChange}
                 input={<OutlinedInput label="Age" id="demo-dialog-native" />}
               >
                 <option aria-label="None" value="" />
-                <option value={10}>Ten</option>
+                {props.optionsSelect.map((item,index) => {
+                  return (
+                    <option key={index} value={item}>{item}</option>
+
+                  )
+                })}
+                {/* <option value={10}>Ten</option>
                 <option value={20}>Twenty</option>
                 <option value={30}>Thirty</option>
                 <option value={30}>Thirty</option>
-                <option value={30}>Thirty</option>
+                <option value={30}>Thirty</option> */}
  
 
 

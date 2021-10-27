@@ -21,8 +21,8 @@ const Details = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container direction='column'>
-                        <Grid item xs={12} sm={4}>
-                            <Grid container direction='row'>
+                        <Grid item xs={12} >
+                            <Grid container direction='row' justifyContent='center'>
 
                                 {detail && 
                                     <Grid item xs={12} sm={8}>
@@ -38,7 +38,24 @@ const Details = () => {
                                     </Grid>
 
                                 }
-                                <Grid item xs={12} sm={4}>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm={8}>
+                            <Grid container justifyContent='center'>
+                                <Grid item sm={11}>
+                                    <Typography component='p' align='center' color='primary' variant='h6'> {detail && detail.description}</Typography>  
+                                </Grid>
+                            </Grid>
+                        </Grid> 
+                        <Grid item xs={6} sm={4}>
+
+                                    {detail && 
+                                    <Grid container justifyContent='center'>
+                                        <Grid item xs={12}sm={4}>
+                                          <PaperImage xl img={ detail.thumbnail}/>
+                                        </Grid>
+                                    </Grid>
+                                    }
                                     <Typography component='p' color='primary' variant='h6'>Requisitos</Typography>
 
                                     <Typography component='p' color='primary' variant='h6'>{ detail && detail.minimum_system_requirements.graphics}</Typography>
@@ -47,16 +64,7 @@ const Details = () => {
                                     <Typography component='p' color='primary' variant='h6'>{ detail && detail.minimum_system_requirements.os}</Typography>
                                     <Typography component='p' color='primary' variant='h6'>{ detail && detail.minimum_system_requirements.storage}</Typography>
 
-                                    {detail && 
-                                    <PaperImage xl img={ detail.thumbnail}/>
-                                    }
-
                                 </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={12} sm={8}>
-                            <Typography component='p' align='center' color='primary' variant='h6'> {detail && detail.description}</Typography>  
-                        </Grid> 
                     </Grid>
                 </Grid>
             </Grid>

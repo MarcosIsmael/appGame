@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useHistory } from 'react-router';
 
 interface Props {
   image: string,
@@ -15,6 +16,7 @@ interface Props {
   id:number
 }
 export default function GameCard({image, title, description,get,freeToGame, id}: Props) {
+  const history= useHistory()
   return (
     <Card sx={{ maxWidth: 345, minWidth:345, minHeight:345, backgroundColor:'#000', border: '3px solid blue' }} >
       <CardMedia
@@ -32,7 +34,7 @@ export default function GameCard({image, title, description,get,freeToGame, id}:
         </Typography>
       </CardContent>
       <CardActions>
-        <Button component='a' target='_blank' href={`/detail/${id}`}size="small">detail</Button>
+        <Button onClick={()=> history.push(`/detail/${id}`)}size="small">detail</Button>
         <Button component='a' target='_blank' href={get} size="small">get</Button>
         <Button component='a' target='_blank' href={freeToGame} size="small">Free to game</Button>
 
