@@ -8,7 +8,7 @@ interface Props {
     cantidadPages:number
 }
 const GameCatalogue = ({cantidadPages}:Props) => {
-    const listGame = useAppSelector((state)=> state.counter.listGames)
+    const listGame = useAppSelector((state)=> state.game.listGames)
     const [desde, setDesde]=useState(0)
     const [hasta, setHasta]=useState(30)
 console.log('DESDE', desde, 'hasta', hasta)

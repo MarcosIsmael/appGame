@@ -1,7 +1,9 @@
 import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
-import gameSlice from '../features/counter/gameSlice';
-import authSlice from '../features/counter/authSlice';
-import gameDetail from '../features/counter/gameDetailSlice';
+import gameSlice from '../slices/gameSlice';
+import authSlice from '../slices/authSlice';
+import gameDetail from '../slices/gameDetailSlice';
+import favoriteSlice from '../slices/favoriteSlice';
+
 import {
   FLUSH,
   PAUSE,
@@ -25,9 +27,10 @@ const persistConfig = {
  };
  
 const rootReducer = combineReducers({
-  counter: gameSlice,
+  game: gameSlice,
   auth: authSlice,
-  gameDetail: gameDetail
+  gameDetail: gameDetail,
+  favorites :favoriteSlice
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import DialogSelect from '../dialogSelect/dialogSelect'
 import {filters} from '../../utils/filters'
-import { getGamesByCategory, getGamesByOrder, getGamesByPlatform, setFilters } from '../../features/counter/gameSlice';
+import { getGamesByCategory, getGamesByOrder, getGamesByPlatform, setFilters } from '../../slices/gameSlice';
 const Portada = () => {
-    const juegos = useAppSelector((state)=> state.counter.listGames)
+    const juegos = useAppSelector((state)=> state.game.listGames)
     const dispatch= useAppDispatch()
     const [img,setImg]=  useState('https://www.freetogame.com/g/1/thumbnail.jpg')
-    const status = useAppSelector((state)=> state.counter.status)
+    const status = useAppSelector((state)=> state.game.status)
     const styles : any = makeStyles({
         containerPortada: {
             backgroundImage:`url("${img}")`,

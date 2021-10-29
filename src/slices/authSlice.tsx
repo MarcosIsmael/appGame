@@ -1,7 +1,6 @@
 
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../redux/store';
-import { fetchCount } from './counterAPI';
+import { RootState, AppThunk } from '../redux/store';
 
 export interface AuthState {
   logueado : boolean;

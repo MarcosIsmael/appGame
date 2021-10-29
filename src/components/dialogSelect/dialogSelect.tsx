@@ -12,7 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { TipoFiltro } from '../../utils/interfaces'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setFilters } from '../../features/counter/gameSlice';
+import { setFilters } from '../../slices/gameSlice';
 type State =  string
 interface Props {
     title : TipoFiltro,
@@ -22,7 +22,7 @@ interface Props {
 }
 export default function DialogSelect(props: Props) {
   const [open, setOpen] = React.useState(false);
-  const filtros = useAppSelector((state)=> state.counter.filters)[props.title]
+  const filtros = useAppSelector((state)=> state.game.filters)[props.title]
   const [age, setAge] = React.useState<State>(filtros);
   const dispatch = useAppDispatch()
 

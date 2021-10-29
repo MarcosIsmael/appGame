@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { RootState, AppThunk } from '../../redux/store';
-import { fetchCount } from './counterAPI';
-import { Action, Juego, TipoFiltro } from '../../utils/interfaces'
+import { RootState, AppThunk } from '../redux/store';
+import { Action, Juego, TipoFiltro } from '../utils/interfaces'
 import { platform } from 'process';
 import { TypedUseSelectorHook } from 'react-redux';
-import type { useAppDispatch } from '../../redux/hooks'
+import type { useAppDispatch } from '../redux/hooks'
 export interface GamesState {
   value: number;
   listGames : Juego[]

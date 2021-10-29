@@ -6,7 +6,10 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useHistory } from 'react-router';
-
+import { Grid } from '@mui/material';
+import Favorite from '../favorite/Favorite'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { removeFavorites, setFavorites } from '../../slices/favoriteSlice';
 interface Props {
   image: string,
   title:string,
@@ -17,8 +20,23 @@ interface Props {
 }
 export default function GameCard({image, title, description,get,freeToGame, id}: Props) {
   const history= useHistory()
+  const dispatch = useAppDispatch()
+  const listFavorites = useAppSelector((state)=> state.favorites.favorites)
+  const handleClick = (active:boolean)=>{
+    if(active){
+      dispatch(setFavorites(id))
+    }else{
+      dispatch(removeFavorites(id))
+
+    }
+  }
   return (
     <Card sx={{ maxWidth: 345, minWidth:345, minHeight:345, backgroundColor:'#000', border: '3px solid blue' }} >
+      <Grid container direction='row' justifyContent='flex-end'>
+        <Grid item xs={2}>
+          <Favorite active={listFavorites.includes(id)} onChange={(active:boolean)=>handleClick(active)}/>
+        </Grid>
+      </Grid>
       <CardMedia
         component="img"
         alt="green iguana"

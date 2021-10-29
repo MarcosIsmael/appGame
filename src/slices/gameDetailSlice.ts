@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { RootState, AppThunk } from '../../redux/store';
-import { fetchCount } from './counterAPI';
-import { Action, Juego, JuegoDetail } from '../../utils/interfaces'
+import { RootState, AppThunk } from '../redux/store';
+import { Action, Juego, JuegoDetail } from '../utils/interfaces'
 export interface GameDetail {
   detail : JuegoDetail | null,
   status: 'idle' | 'loading' | 'failed'| 'succeded';

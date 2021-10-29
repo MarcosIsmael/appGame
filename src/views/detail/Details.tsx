@@ -1,7 +1,7 @@
 import { Grid, Paper, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
-import { getDetailGame } from '../../features/counter/gameDetailSlice'
+import { getDetailGame } from '../../slices/gameDetailSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import PaperImage from '../../components/paperImage/PaperImage'
 import { Box } from '@mui/system'
