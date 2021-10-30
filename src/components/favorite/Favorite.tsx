@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
 import StarsOutlinedIcon from '@mui/icons-material/StarsOutlined';
 interface Props {
@@ -7,15 +7,25 @@ interface Props {
 }
 const Favorite = ({active, onChange}:Props) => {
 const [check,setCheck] = useState(active)
+
+
 const handleChange = (active:boolean)=>{
     setCheck(active)
     onChange(active)
 }
+
+
+    useEffect(()=>{
+        setCheck(active)
+    },[active])
+
     if(check){
         return <StarsRoundedIcon color='primary' fontSize='large' onClick={()=> handleChange(false)}/>
     }else{
         return <StarsOutlinedIcon color='primary' fontSize='large' onClick={()=> handleChange(true)}/>
     }
+
+
 }
 
 export default Favorite

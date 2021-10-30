@@ -136,4 +136,4 @@ export const gameSlice = createSlice({
 });
 
 export const {setFilters}=gameSlice.actions
-export default gameSlice.reducer;
+export default gameSlice;

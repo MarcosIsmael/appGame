@@ -19,24 +19,25 @@ import storageSession from 'redux-persist/lib/storage/session'
 
 import { combineReducers } from 'redux';
 
-const persistConfig = {
-  key: 'root',
-  storage: storage || storageSession,
-  whiteList: [], // Si no lo definimos guarda todo
-  blackList: []
- };
+
  
 const rootReducer = combineReducers({
-  game: gameSlice,
+  game: gameSlice.reducer,
   auth: authSlice,
   gameDetail: gameDetail,
   favorites :favoriteSlice
 });
+const persistConfig = {
+  key: 'root',
+  storage: storage || storageSession,
+   whiteList: ['favorites'], // Si no lo definimos guarda todo
+  blacklist: ['game','auth','gameDetail'], 
+};
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer:persistedReducer,
-  middleware: getDefaultMiddleware({
+  middleware: (getDefaultMiddleware)=> getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
