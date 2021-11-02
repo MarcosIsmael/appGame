@@ -44,12 +44,13 @@ const GameCatalogue = ({cantidadPages}:Props) => {
                 listGame.map((item,index) => {
                      return <Grid item key={index}>
                                  <GameCard 
-                                 image={item.thumbnail} 
-                                 title={item.title} 
-                                 description={item.short_description}
-                                 get={item.game_url}
-                                 freeToGame={item.freetogame_profile_url}
-                                 id={item.id}
+                                //  image={item.thumbnail} 
+                                //  title={item.title} 
+                                //  description={item.short_description}
+                                //  get={item.game_url}
+                                //  freeToGame={item.freetogame_profile_url}
+                                //  id={item.id}
+                                game={item}
                                  review={getReview(item.id)}
                                  />
                             </Grid>

@@ -11,22 +11,17 @@ import Favorite from '../favorite/Favorite'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { removeFavorites, setFavorites } from '../../slices/favoriteSlice';
 import Rating from "../rating/Rating"
-
+import { Juego } from '../../utils/interfaces';
 interface Props {
-  image: string,
-  title:string,
-  description:string,
-  freeToGame:string,
-  get:string,
-  id:number,
-  review:number
+ game:Juego,
+ review:number
 }
-export default function GameCard({image, title, description,get,freeToGame, id, review}: Props) {
+export default function GameCard({game,review}:Props) {
   const history= useHistory()
   const dispatch = useAppDispatch()
   console.log('reiew', review)
   // const [review,setReview] = React.useState(0)
-  const listFavorites = useAppSelector((state)=> state.favorites.favorites)
+  const favorite = useAppSelector((state)=> state.favorites.favorites).filter(item=> item.id === game.id)
   // const reviewList = useAppSelector((state)=> state.reviews.reviews)
   // const reviewStatus = useAppSelector((state)=> state.reviews.status)
 
@@ -40,9 +35,9 @@ export default function GameCard({image, title, description,get,freeToGame, id, 
 // },[reviewStatus])
   const handleClick = (active:boolean)=>{
     if(active){
-      dispatch(setFavorites(id))
+      dispatch(setFavorites(game))
     }else{
-      dispatch(removeFavorites(id))
+      dispatch(removeFavorites(game.id))
 
     }
   }
@@ -50,21 +45,21 @@ export default function GameCard({image, title, description,get,freeToGame, id, 
     <Card sx={{ maxWidth: 345, minWidth:345, minHeight:345, backgroundColor:'#000', border: '3px solid blue' }} >
       <Grid container direction='row' justifyContent='flex-end'>
         <Grid item xs={2}>
-          <Favorite active={listFavorites.includes(id)} onChange={(active:boolean)=>handleClick(active)}/>
+          <Favorite active={favorite.length >0} onChange={(active:boolean)=>handleClick(active)}/>
         </Grid>
       </Grid>
       <CardMedia
         component="img"
         alt="green iguana"
         height="140"
-        image={image}
+        image={game.thumbnail}
       />
       <CardContent style={{backgroundColor:'#0000000'}} >
         <Typography color='primary' gutterBottom variant="h5" component="div">
-          {title}
+          {game.title}
         </Typography>
         <Typography variant="body2" color='primary'>
-          {description}
+          {game.short_description}
         </Typography>
       </CardContent>
       <Grid container direction="row" justifyContent="center">
@@ -73,9 +68,9 @@ export default function GameCard({image, title, description,get,freeToGame, id, 
         </Grid>
       </Grid>
       <CardActions>
-        <Button onClick={()=> history.push(`/detail/${id}`)}size="small">detail</Button>
-        <Button component='a' target='_blank' href={get} size="small">get</Button>
-        <Button component='a' target='_blank' href={freeToGame} size="small">Free to game</Button>
+        <Button onClick={()=> history.push(`/detail/${game.id}`)}size="small">detail</Button>
+        <Button component='a' target='_blank' href={game.game_url} size="small">get</Button>
+        <Button component='a' target='_blank' href={game.freetogame_profile_url} size="small">Free to game</Button>
       </CardActions>
     </Card>
   );

@@ -1,8 +1,9 @@
 
 import { createSlice } from '@reduxjs/toolkit';
+import { Juego } from '../utils/interfaces';
 
 export interface FAvoriteState {
-favorites:number[]
+favorites:Juego[]
 }
 
 const initialState: FAvoriteState = {
@@ -10,14 +11,14 @@ favorites:[]
 };
 
 export const favoriteSlice = createSlice({
-  name: 'auth',
+  name: 'favorites',
   initialState,
   reducers: {
-      setFavorites: ((state,action: {type:string, payload:number})=>{
+      setFavorites: ((state,action: {type:string, payload:Juego})=>{
             state.favorites.push(action.payload)
       }),
       removeFavorites: ((state,action:{type:string, payload:number})=>{
-          state.favorites = state.favorites.filter(id => id !== action.payload)
+          state.favorites = state.favorites.filter(item => item.id !== action.payload)
       })
   },
   extraReducers: (builder) => {
