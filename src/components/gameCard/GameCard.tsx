@@ -10,6 +10,8 @@ import { Grid } from '@mui/material';
 import Favorite from '../favorite/Favorite'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { removeFavorites, setFavorites } from '../../slices/favoriteSlice';
+import Rating from "../rating/Rating"
+
 interface Props {
   image: string,
   title:string,
@@ -51,11 +53,15 @@ export default function GameCard({image, title, description,get,freeToGame, id}:
           {description}
         </Typography>
       </CardContent>
+      <Grid container direction="row" justifyContent="center">
+        <Grid item xs={6}> 
+         <Rating value={2}/>
+        </Grid>
+      </Grid>
       <CardActions>
         <Button onClick={()=> history.push(`/detail/${id}`)}size="small">detail</Button>
         <Button component='a' target='_blank' href={get} size="small">get</Button>
         <Button component='a' target='_blank' href={freeToGame} size="small">Free to game</Button>
-
       </CardActions>
     </Card>
   );

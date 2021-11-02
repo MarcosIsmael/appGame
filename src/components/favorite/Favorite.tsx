@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
-import StarsOutlinedIcon from '@mui/icons-material/StarsOutlined';
+// import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
+// import StarsOutlinedIcon from '@mui/icons-material/StarsOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 interface Props {
     active: boolean,
     onChange : (arg : boolean)=> void
@@ -20,9 +22,9 @@ const handleChange = (active:boolean)=>{
     },[active])
 
     if(check){
-        return <StarsRoundedIcon color='primary' fontSize='large' onClick={()=> handleChange(false)}/>
+        return <ThumbUpIcon color='primary' fontSize='large' onClick={()=> handleChange(false)}/>
     }else{
-        return <StarsOutlinedIcon color='primary' fontSize='large' onClick={()=> handleChange(true)}/>
+        return <ThumbUpOutlinedIcon color='primary' fontSize='large' onClick={()=> handleChange(true)}/>
     }
 
 

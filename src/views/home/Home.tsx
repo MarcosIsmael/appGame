@@ -4,6 +4,7 @@ import Portada from '../../components/portada/Portada'
 import { getAllGames } from '../../slices/gameSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import GameCatalogue from '../../components/gameCatalogue/GameCatalogue'
+import Loading from '../../components/loading/Loading'
 const Home = () => {
     const dispatch = useAppDispatch()
     const status = useAppSelector((state)=>state.game.status)
@@ -20,9 +21,9 @@ const Home = () => {
                    <Portada/>
                 </Grid>
                 <Grid item xs={12}>
-                    {status === 'succeded' ?     
+                    {status !== 'loading' ?     
                         <GameCatalogue cantidadPages={Math.ceil(listGames.length / 30)}/>
-                    : <Typography> No hay juegos</Typography>
+                    : <Loading/>
                 }
                 </Grid>
             </Grid>

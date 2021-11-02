@@ -4,7 +4,18 @@ import { useParams } from 'react-router'
 import { getDetailGame } from '../../slices/gameDetailSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import PaperImage from '../../components/paperImage/PaperImage'
+import FormValoration from '../../components/formValoration/FormValoration'
 import { Box } from '@mui/system'
+import { db } from '../../components/firebase/firebase'
+
+
+type Review = 
+    {
+        valoracion:string,
+        nombre:string,
+        descripcion:string
+      }
+
 const Details = () => {
  const params : {id:string}= useParams()
  const dispatch = useAppDispatch()
@@ -14,6 +25,16 @@ const Details = () => {
  useEffect(()=>{
     dispatch(getDetailGame(params.id))
  },[])
+ const customOnSubmit = (data:Review) => {
+    console.log(data)
+    let obj = {
+        nombre: data.nombre,
+        value:data.valoracion,
+        descripcion : data.descripcion,
+        juegoId:params.id
+    }
+    db.collection("reviews").doc().set(obj)
+}
     return (
             <Grid container direction='column' >
                 <Grid item xs={12}>
@@ -65,6 +86,13 @@ const Details = () => {
                                     <Typography component='p' color='primary' variant='h6'>{ detail && detail.minimum_system_requirements.storage}</Typography>
 
                                 </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                    <Grid container direction='row' justifyContent='center'>
+                        <Grid item xs={12} sm={6}>
+                            <FormValoration customOnSubmit={customOnSubmit}/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
