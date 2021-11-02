@@ -7,7 +7,9 @@ import { TypedUseSelectorHook } from 'react-redux';
 import type { useAppDispatch } from '../redux/hooks'
 export interface GamesState {
   value: number;
-  listGames : Juego[]
+  listGames : Juego[],
+  listByPage:Juego[],
+  page:number,
   status: 'idle' | 'loading' | 'failed'| 'succeded';
   filters:Filters
 }
@@ -20,6 +22,8 @@ type Filters = {
 const initialState: GamesState = {
   value: 0,
   listGames :[],
+  listByPage:[],
+  page:1,
   status: 'idle',
   filters: {Plataforma:'', Categoria:'', Ordenar:''}
 };
@@ -81,6 +85,11 @@ export const gameSlice = createSlice({
       if(type === 'Categoria') state.filters.Plataforma=''
       if(type === 'Plataforma')state.filters.Categoria = ''
         state.filters[type]= value
+    }),
+    setPagination: ((state,action)=>{
+      const{desde,hasta,page }=action.payload
+      state.listByPage = state.listGames.slice(desde,hasta)
+      state.page = page
     })
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -93,6 +102,7 @@ export const gameSlice = createSlice({
        .addCase(getAllGames.fulfilled, (state, action: any) => {
          state.status = 'succeded';
         state.listGames = action.payload;
+        state.listByPage= action.payload.slice(0,30)
        })
        .addCase(getAllGames.rejected, (state, action: any) => {
         state.status = 'failed';
@@ -135,5 +145,5 @@ export const gameSlice = createSlice({
   },
 });
 
-export const {setFilters}=gameSlice.actions
+export const {setFilters , setPagination}=gameSlice.actions
 export default gameSlice;

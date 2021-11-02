@@ -18,12 +18,26 @@ interface Props {
   description:string,
   freeToGame:string,
   get:string,
-  id:number
+  id:number,
+  review:number
 }
-export default function GameCard({image, title, description,get,freeToGame, id}: Props) {
+export default function GameCard({image, title, description,get,freeToGame, id, review}: Props) {
   const history= useHistory()
   const dispatch = useAppDispatch()
+  console.log('reiew', review)
+  // const [review,setReview] = React.useState(0)
   const listFavorites = useAppSelector((state)=> state.favorites.favorites)
+  // const reviewList = useAppSelector((state)=> state.reviews.reviews)
+  // const reviewStatus = useAppSelector((state)=> state.reviews.status)
+
+
+// React.useEffect(()=>{
+//   if(reviewStatus === 'succeded' && reviewList.length > 0){
+//     setReview(reviewList.filter(item => { if(item.juegoId == id) return item}).length > 0 
+//     ? reviewList.filter(item => { if(item.juegoId == id) return item})[0].valoracion
+//     : 0)
+//   }
+// },[reviewStatus])
   const handleClick = (active:boolean)=>{
     if(active){
       dispatch(setFavorites(id))
@@ -55,7 +69,7 @@ export default function GameCard({image, title, description,get,freeToGame, id}:
       </CardContent>
       <Grid container direction="row" justifyContent="center">
         <Grid item xs={6}> 
-         <Rating value={2}/>
+         <Rating value={review}/>
         </Grid>
       </Grid>
       <CardActions>

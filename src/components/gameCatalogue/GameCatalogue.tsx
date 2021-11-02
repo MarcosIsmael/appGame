@@ -7,16 +7,41 @@ import PaginationGame from '../paginationGame/PaginationGame'
 interface Props {
     cantidadPages:number
 }
+type Review = 
+    {
+        valoracion:number,
+        nombre:string,
+        descripcion:string,
+        juegoId:number
+      }
+
 const GameCatalogue = ({cantidadPages}:Props) => {
-    const listGame = useAppSelector((state)=> state.game.listGames)
+    const listGame = useAppSelector((state)=> state.game.listByPage)
     const [desde, setDesde]=useState(0)
     const [hasta, setHasta]=useState(30)
-console.log('DESDE', desde, 'hasta', hasta)
+    const reviewList = useAppSelector((state)=> state.reviews.reviews)
+    const reviewStatus = useAppSelector((state)=> state.reviews.status)
+    
+    const getReview = (id:number)=>{
+      const listValoration =  reviewList.filter(element=> element.juegoId == id).map(element => element.value *1)
+      const cantidad = listValoration.length
+      console.log('LISTA', listValoration)
+      const total = listValoration.reduce((previusValue, currentValue)=> {
+          console.log('PREVIO',previusValue)
+          console.log('POSICION',currentValue)
+
+      return previusValue + currentValue
+      },0
+      )
+    //   console.log('TOTAL', total)
+    //   console.log('CANTIDAD',cantidad)
+      return  Math.ceil(total / cantidad) 
+    }
     return (
         <Grid container direction='column'>
             <Grid container direction='row' spacing={2} justifyContent='center'>
                 {listGame.length > 0 ?
-                listGame.slice(desde,hasta).map((item,index) => {
+                listGame.map((item,index) => {
                      return <Grid item key={index}>
                                  <GameCard 
                                  image={item.thumbnail} 
@@ -25,6 +50,7 @@ console.log('DESDE', desde, 'hasta', hasta)
                                  get={item.game_url}
                                  freeToGame={item.freetogame_profile_url}
                                  id={item.id}
+                                 review={getReview(item.id)}
                                  />
                             </Grid>
                     }):

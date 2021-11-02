@@ -4,6 +4,8 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { Box } from '@mui/system';
 import { makeStyles } from '@mui/styles';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { setPagination } from '../../slices/gameSlice';
 
 
 interface Props {
@@ -23,7 +25,9 @@ interface Props {
 
 
 export default function PaginationGame({juegosPorPage, setHasta,setDesde, cantidadPages}:Props) {
-  const [page, setPage] = React.useState(1);
+  // const [page, setPage] = React.useState(1);
+  const page = useAppSelector((state)=> state.game.page)
+  const dispatch = useAppDispatch()
   const styles = makeStyles(()=>({
       colorPagination:{
           "& li button":{
@@ -41,11 +45,13 @@ export default function PaginationGame({juegosPorPage, setHasta,setDesde, cantid
     setHasta(value * juegosPorPage)
     if(value > 1){
         setDesde((value -1) * juegosPorPage)
+        dispatch(setPagination({hasta:value * juegosPorPage, desde: (value -1) * juegosPorPage, page:value}))
     }else{
         setDesde(0)
+        dispatch(setPagination({hasta:value * juegosPorPage, desde: 0, page:value}))
 
     }
-    setPage(value);
+    // setPage(value);
   };
 
   return (

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { db } from '../components/firebase/firebase';
 import { RootState, AppThunk } from '../redux/store';
 import { Action, Juego, JuegoDetail } from '../utils/interfaces'
 export interface GameDetail {
@@ -26,6 +27,9 @@ export const getDetailGame = createAsyncThunk(
   }
 );
 
+
+
+
 export const gameDetail = createSlice({
   name: 'gameDetail',
   initialState,
@@ -41,7 +45,8 @@ export const gameDetail = createSlice({
        .addCase(getDetailGame.fulfilled, (state, action: any) => {
          state.status = 'succeded';
         state.detail = action.payload;
-       });
+       })
+   
   },
 });
 

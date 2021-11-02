@@ -3,6 +3,8 @@ import gameSlice from '../slices/gameSlice';
 import authSlice from '../slices/authSlice';
 import gameDetail from '../slices/gameDetailSlice';
 import favoriteSlice from '../slices/favoriteSlice';
+import reviewSlice from '../slices/reviewSlice';
+
 
 import {
   FLUSH,
@@ -25,13 +27,14 @@ const rootReducer = combineReducers({
   game: gameSlice.reducer,
   auth: authSlice,
   gameDetail: gameDetail,
-  favorites :favoriteSlice
+  favorites :favoriteSlice,
+  reviews: reviewSlice
 });
 const persistConfig = {
   key: 'root',
   storage: storage || storageSession,
    whiteList: ['favorites'], // Si no lo definimos guarda todo
-  blacklist: ['game','auth','gameDetail'], 
+  blacklist: ['game','auth','gameDetail','reviews'], 
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
