@@ -1,10 +1,13 @@
 import { Grid, Paper, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
+import CardMedia from '@mui/material/CardMedia';
+
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import DialogSelect from '../dialogSelect/dialogSelect'
 import {filters} from '../../utils/filters'
+import InfoProfile from '../infoProfile/InfoProfile'
 import { getGamesByCategory, getGamesByOrder, getGamesByPlatform, setFilters } from '../../slices/gameSlice';
 const Portada = () => {
     const juegos = useAppSelector((state)=> state.game.listGames)
@@ -43,13 +46,23 @@ const Portada = () => {
     console.log(img)
     const classes = styles()
     return (
-        <Paper elevation={2} className={classes.containerPortada}  square>
-            <Grid container direction='column' spacing={10}>
-                <Grid item sm/>
-                <Grid item sm/>
-                <Grid item sm/>
-                <Grid item sm/>
-
+        <Box mb={1}>
+            <Grid container direction='column' spacing={2}>
+                <Grid item xs={12}>
+                    <Grid container direction='row' justifyContent='center'>
+                        <Grid xs={12} sm={6}>
+                            <CardMedia
+                            component="img"
+                            alt="imagen portada"
+                            height="118"
+                            image={img}
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                    <InfoProfile/>
+                </Grid>
                 <Grid item xs={12}>
                     <Box bgcolor='#000000' height={40} display='flex' alignItems='center'>  
                     <Grid container direction='row' alignContent='center' >
@@ -66,7 +79,7 @@ const Portada = () => {
                     </Box>     
                 </Grid>
             </Grid>
-        </Paper>
+            </Box>
     )
 }
 
