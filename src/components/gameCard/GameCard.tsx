@@ -19,7 +19,6 @@ interface Props {
 export default function GameCard({game,review}:Props) {
   const history= useHistory()
   const dispatch = useAppDispatch()
-  console.log('reiew', review)
   // const [review,setReview] = React.useState(0)
   const favorite = useAppSelector((state)=> state.favorites.favorites).filter(item=> item.id === game.id)
   // const reviewList = useAppSelector((state)=> state.reviews.reviews)
