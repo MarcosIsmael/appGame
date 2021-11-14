@@ -4,24 +4,29 @@ import { db } from '../components/firebase/firebase';
 
 type Review = 
     {
-        value:number,
-        nombre:string,
+        valor:number,
+        titulo:string,
         descripcion:string,
-        juegoId:number
+        juegoId:number,
+        nombre:string,
+        mail:string,
+        imagen:string
       }
 
 export interface ReviewState {
 reviews:Review[] 
 status: 'idle' | 'loading' | 'failed'| 'succeded';
+statusPost:'idle' | 'loading' | 'failed'| 'succeded'
 }
 
 const initialState: ReviewState = {
 reviews: [],
-status:'idle'
+status:'idle',
+statusPost:'idle'
 };
 
 export const getAllDocuments = createAsyncThunk(
-    'gameDetail/getAllDocuments',
+    'review/getAllDocuments',
     async () => {
       const response = await db.collection("reviews").get()
       const firebaseCollectionData : any[] = [];
@@ -31,6 +36,17 @@ export const getAllDocuments = createAsyncThunk(
       return firebaseCollectionData
     }
   );
+
+  export const postReview = createAsyncThunk(
+    'review/postReview',
+    async (obj:any) => {
+      
+      const response = await db.collection("reviews").doc().set(obj)
+
+      return response
+    }
+  );
+
 export const reviewSlice = createSlice({
   name: 'review',
   initialState,
@@ -44,6 +60,18 @@ export const reviewSlice = createSlice({
       .addCase(getAllDocuments.fulfilled, (state, action: any) => {
         state.status = 'succeded';
        state.reviews = action.payload;
+      })
+      .addCase(getAllDocuments.rejected, (state) => {
+        state.status = 'failed';
+      })
+      .addCase(postReview.pending, (state, action: any) => {
+        state.statusPost = 'loading';
+      })
+      .addCase(postReview.fulfilled, (state, action: any) => {
+        state.statusPost = 'succeded';
+      })
+      .addCase(postReview.rejected, (state, action: any) => {
+        state.statusPost = 'failed';
       });
   },
 });

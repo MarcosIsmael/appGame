@@ -11,16 +11,19 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { Grid } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 import {useAppDispatch, useAppSelector} from '../../redux/hooks'
 import Avatar from '@mui/material/Avatar';
 import { logout, signInWithGoogle } from '../../slices/authSlice';
+import { useHistory } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 type Type = 'login' | 'logout' | 'favoritos'| undefined
-export default function InfoPRofile() {
+export default function InfoProfile() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const authState = useAppSelector((state)=> state.auth)
+  const history = useHistory()
 const dispatch = useAppDispatch()
 
   const handleMenu = (event:any) => {
@@ -35,7 +38,7 @@ const dispatch = useAppDispatch()
           dispatch(logout())
       }
       if(type === 'favoritos'){
-          console.log('redirigir a favoritos')
+          history.push('/favorites')
       }
     setAnchorEl(null);
   };
@@ -45,13 +48,18 @@ const dispatch = useAppDispatch()
       <AppBar position="sticky" color='transparent'>
           
         <Toolbar>
-            <Grid container direction='row'>
-                <Grid item xs={10}>
+            <Grid container direction='row' justifyContent='flex-end'>
+                {/* <Grid item xs={10}>
                     {authState.logueado &&      
                         <Typography variant="h6" component="h6" color='secondary' >
-                            Hola!  {authState.user.nombreCompleto} {authState.user.email}
+                            Hola!  {authState.user.nombreCompleto} {authState.user.mail}
                         </Typography>
                     }
+                </Grid> */}
+                <Grid item xs={4} sm={6}></Grid>
+                   <Grid item xs={8} sm={6}>                     
+                     <Button onClick={()=> history.push('/')}>Home</Button>
+                     <Button  onClick={()=> history.push('/favorites')}> Favorites</Button>
                 </Grid>
 
             </Grid>
@@ -67,7 +75,7 @@ const dispatch = useAppDispatch()
               {!authState.logueado ? 
               
               <AccountCircle color='primary' fontSize='large'/>
-              : < Avatar alt="Foto user" src={authState.user.image} />
+              : < Avatar alt={authState.user.nombreCompleto} color='primary' src={authState.user.image} />
             }  
               </IconButton>
               <Menu

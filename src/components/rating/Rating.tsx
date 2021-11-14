@@ -23,7 +23,7 @@ const RatingSIze =({value}:Props) =>{
   return (
       <Box >
         <Stack spacing={1} >
-        <Rating className={classes.star} readOnly name="size-small" defaultValue={0} onClick={()=> dispatch(signInWithGoogle())} value={value} size="small" />
+        <Rating className={classes.star} readOnly name="size-small" defaultValue={0} onClick={()=> dispatch(signInWithGoogle())} value={value} size="medium" />
         </Stack>
       </Box>
   );

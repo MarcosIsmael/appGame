@@ -9,7 +9,12 @@ import DialogSelect from '../dialogSelect/dialogSelect'
 import {filters} from '../../utils/filters'
 import InfoProfile from '../infoProfile/InfoProfile'
 import { getGamesByCategory, getGamesByOrder, getGamesByPlatform, setFilters } from '../../slices/gameSlice';
-const Portada = () => {
+
+interface Props {
+    filter:boolean,
+    children?:any
+}
+const Portada = ({ filter, children}:Props) => {
     const juegos = useAppSelector((state)=> state.game.listGames)
     const dispatch= useAppDispatch()
     const [img,setImg]=  useState('https://www.freetogame.com/g/1/thumbnail.jpg')
@@ -63,21 +68,22 @@ const Portada = () => {
                 <Grid item xs={12}>
                     <InfoProfile/>
                 </Grid>
-                <Grid item xs={12}>
-                    <Box bgcolor='#000000' height={40} display='flex' alignItems='center'>  
-                    <Grid container direction='row' alignContent='center' >
-                        <Grid item xs={4}>
-                            <DialogSelect handleClick={handleClick} optionsSelect={filters.platform} title={'Plataforma'} titleDialog={'filtrar por Plataforma'}/>
+                    <Grid item xs={12}>
+                        {/* <Box bgcolor='#000000' height={40} display='flex' alignItems='center'>  
+                        <Grid container direction='row' alignContent='center' >
+                            <Grid item xs={4}>
+                                <DialogSelect handleClick={handleClick} optionsSelect={filters.platform} title={'Plataforma'} titleDialog={'filtrar por Plataforma'}/>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <DialogSelect handleClick={handleClick} optionsSelect={filters.tag} title={'Categoria'} titleDialog={'filtrar por categoria'}/>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <DialogSelect handleClick={handleClick} optionsSelect={filters.order} title={'Ordenar'} titleDialog={'Ordenar por..'}/>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={4}>
-                            <DialogSelect handleClick={handleClick} optionsSelect={filters.tag} title={'Categoria'} titleDialog={'filtrar por categoria'}/>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <DialogSelect handleClick={handleClick} optionsSelect={filters.order} title={'Ordenar'} titleDialog={'Ordenar por..'}/>
-                        </Grid>
+                        </Box>      */}
+                        {children}
                     </Grid>
-                    </Box>     
-                </Grid>
             </Grid>
             </Box>
     )

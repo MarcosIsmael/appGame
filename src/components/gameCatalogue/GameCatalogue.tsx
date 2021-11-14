@@ -23,18 +23,12 @@ const GameCatalogue = ({cantidadPages}:Props) => {
     const reviewStatus = useAppSelector((state)=> state.reviews.status)
     
     const getReview = (id:number)=>{
-      const listValoration =  reviewList.filter(element=> element.juegoId == id).map(element => element.value *1)
+      const listValoration =  reviewList.filter(element=> element.juegoId == id).map(element => element.valor *1)
       const cantidad = listValoration.length
-      console.log('LISTA', listValoration)
       const total = listValoration.reduce((previusValue, currentValue)=> {
-          console.log('PREVIO',previusValue)
-          console.log('POSICION',currentValue)
-
       return previusValue + currentValue
       },0
       )
-    //   console.log('TOTAL', total)
-    //   console.log('CANTIDAD',cantidad)
       return  Math.ceil(total / cantidad) 
     }
     return (
